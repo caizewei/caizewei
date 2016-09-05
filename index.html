@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+	*{
+		padding:0;margin:0;
+	}
+	body{
+		background: #000;
+	}
+	canvas{
+		display:block;margin:0 auto;background:url(img/game_bg_2_hd.jpg);
+	}
+</style>
+<script>
+	window.addEventListener('DOMContentLoaded',function(){
+		var oc=document.querySelector('canvas');
+		var gd=oc.getContext('2d');
+		var arr=['fish1','fish2','fish3','fish4','fish5'];
+		function readLoad(arr,fnSucc,fnLoad){
+			var count=0;
+			for (var i = 0; i < arr.length; i++) {
+				var oImg=new Image();
+				oImg.src='url(img/'+arr[i]+'.png)';
+				(function(index,oImg){
+					oImg.onload=function(){
+						gd.drawImage(oImg,100*index,100);
+						count++;
+						fnLoad&&fnLoad(count,arr.length);
+						if(count==arr.length){
+							fnSucc&&fnSucc();
+						}
+					}
+				})(i,oImg)
+			}
+		}
+		readLoad(arr,function fnSucc(){
+
+		},function fnLoad(load,total){
+
+		});
+	},false);
+</script>
+</head>
+<body>
+    <canvas width="800" height="600"></canvas>
+</body>
+</html>
